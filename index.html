@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выход из расставания — Курс Алексея Ярового</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A2238;
+            --deep-blue: #243552;
+            --beige-bg: #FDFBF7;
+            --accent-gold: #C5A48D;
+            --white: #FFFFFF;
+            --bright-red: #D32F2F; /* Цвет для кнопок */
+            --shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Manrope', sans-serif; background-color: var(--beige-bg); color: var(--navy); line-height: 1.6; }
+
+        /* ВЕРХНЯЯ ПАНЕЛЬ */
+        .header {
+            position: fixed; top: 0; width: 100%; height: 80px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .nav-links { display: flex; gap: 20px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; }
+        .nav-links a { text-decoration: none; color: var(--navy); transition: 0.3s; }
+        .social-icons { display: flex; gap: 20px; align-items: center; }
+        .social-icons img { width: 32px; height: 32px; transition: 0.3s; }
+        .social-icons a:hover img { transform: scale(1.1); }
+
+        /* ОБЩИЕ СТИЛИ */
+        .section { padding: 100px 10%; position: relative; }
+        .h2-large { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 3.5rem); text-align: center; margin-bottom: 50px; }
+        .red-btn { 
+            background: var(--bright-red); color: white; padding: 20px 45px; 
+            border-radius: 12px; text-decoration: none; font-weight: 800; 
+            text-transform: uppercase; font-size: 1rem; border: none; 
+            cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+            display: inline-block;
+        }
+        .red-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(211, 47, 47, 0.4); }
+
+        /* БЛОК 1: ГЕРОЙ */
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; gap: 5%; background: #fff; }
+        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.1; margin-bottom: 40px; }
+        .author-photo { width: 450px; height: 450px; border-radius: 50%; border: 15px solid white; box-shadow: var(--shadow); object-fit: cover; }
+
+        /* БЛОК 2: ПЛАШКА С ТЕНЬЮ */
+        .block-2-plate { 
+            background: white; padding: 60px; border-radius: 30px; box-shadow: var(--shadow); 
+            max-width: 1000px; margin: 0 auto; text-align: center; font-size: 1.35rem; font-weight: 600;
+        }
+
+        /* БЛОКИ 3, 4, 5: КАРТОЧКИ */
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .card { 
+            background: white; padding: 40px; border-radius: 25px; box-shadow: var(--shadow); 
+            border-top: 6px solid var(--accent-gold); transition: 0.3s;
+        }
+        .card h4 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--deep-blue); margin-bottom: 15px; }
+        .card p, .card li { font-size: 1.1rem; }
+
+        /* БЛОК 6: СИНЯЯ ПЛАШКА (ОВАЛ) */
+        .pill-blue { 
+            background: var(--deep-blue); color: white; padding: 80px 10%; 
+            border-radius: 1000px; text-align: center; margin: 60px auto; 
+            max-width: 1100px; 
+        }
+        .pill-blue h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 25px; }
+        .pill-blue p { font-size: 1.3rem; max-width: 800px; margin: 0 auto 15px; }
+
+        /* БЛОК 7: FAQ */
+        .faq-item { background: white; margin-bottom: 15px; border-radius: 15px; box-shadow: var(--shadow); }
+        .faq-q { padding: 25px 40px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 1.2rem; }
+        .faq-a { padding: 0 40px; max-height: 0; overflow: hidden; transition: 0.4s ease; opacity: 0; font-size: 1.1rem; }
+        .faq-item.active .faq-a { padding: 10px 40px 30px; max-height: 1000px; opacity: 1; border-top: 1px solid #f0f0f0; }
+
+        /* БЛОК 8: ТАРИФЫ */
+        .tariff-card { 
+            background: white; padding: 50px 35px; border-radius: 30px; 
+            box-shadow: var(--shadow); text-align: center; border: 1px solid #eee;
+        }
+        .tariff-card h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 10px; }
+        .tariff-desc { font-style: italic; color: var(--accent-gold); margin-bottom: 25px; min-height: 50px; }
+        .tariff-price { font-size: 2.5rem; font-weight: 800; color: var(--navy); margin: 30px 0; border-top: 1px solid #eee; padding-top: 20px; }
+        .tariff-list { text-align: left; list-style: none; padding: 0; margin-bottom: 30px; }
+        .tariff-list li { margin-bottom: 12px; padding-left: 30px; position: relative; font-weight: 600; }
+        .tariff-list li::before { content: '✓'; position: absolute; left: 0; color: #4CAF50; font-weight: 900; }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 1024px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+            .author-photo { width: 320px; height: 320px; margin-bottom: 40px; }
+            .pill-blue { border-radius: 50px; padding: 60px 5%; }
+            .header { height: auto; padding: 15px; flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-links">
+            <a href="#how">Как проходит курс</a>
+            <a href="#content">Содержание курса</a>
+            <a href="#faq">Вопросы</a>
+            <a href="#tariffs">Тарифы</a>
+        </div>
+        <div class="social-icons">
+            <a href="https://t.me/alexeyarovoy" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
+            <a href="https://vk.com/publicyarovoi" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/145/145813.png" alt="ВКонтакте"></a>
+            <a href="mailto:takar812@yandex.ru"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"></a>
+        </div>
+    </header>
+
+    <section class="section hero">
+        <div class="hero-text">
+            <h1>Выход из <br>расставания</h1>
+            <div style="display: flex; gap: 20px; margin-top: 30px;">
+                <a href="https://t.me/tatiana_karavai" class="red-btn">Записаться на курс</a>
+                <a href="https://vk.com/id3529551" class="red-btn" style="background:#fff; color:var(--bright-red); border: 2px solid var(--bright-red); box-shadow: none;">Задать вопрос</a>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <img src="https://i.ibb.co/gFDjXsGW/33.png" class="author-photo" alt="Алексей Яровой">
+            <p style="font-family: 'Playfair Display'; font-size: 1.8rem; margin: 20px 0 5px;">Алексей Яровой</p>
+            <p style="color: var(--accent-gold); letter-spacing: 2px; font-weight: 700; font-size: 0.9rem;">ПСИХОЛОГ • АВТОР КУРСА</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="block-2-plate">
+            Расставание похоже на паузу, где жизнь замирает. Вы ловите себя на том, что в сотый раз прокручиваете одни и те же вопросы:<br>
+            <span style="font-family: 'Playfair Display'; font-size: 2rem; color: var(--accent-gold); display: block; margin: 25px 0;">Почему? Что не так? Как теперь жить?</span>
+            Вы всё понимаете головой, но вам от этого не легче. Это состояние «тумана» можно и нужно проходить быстрее, чтобы не застрять в нём надолго.<br><br>
+            <b>Мы создали систему, которая помогает бережно выйти из этого состояния и выбраться из эмоциональной ямы.</b>
+        </div>
+    </section>
+
+    <section id="how" class="section">
+        <h2 class="h2-large">Как проходит курс</h2>
+        <div class="grid-cards">
+            <div class="card">
+                <h4>👉 Живые вебинары по субботам</h4>
+                <p>Встречаемся раз в неделю. Если не успеваете на эфир — не страшно: все записи сразу появляются в закрытой группе. Смотреть можно в любое время, даже ночью.</p>
+            </div>
+            <div class="card">
+                <h4>👉 Поддержка куратора-психолога</h4>
+                <p>Вы не одни. На протяжении всего курса рядом будет специалист, который ответит на вопросы, поддержит и поможет не сбиться с пути.</p>
+            </div>
+            <div class="card">
+                <h4>👉 Без гонки и дедлайнов</h4>
+                <p>Идёте в своём темпе. Главное — не скорость, а качество проработок.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: rgba(197,164,141,0.05);">
+        <h2 class="h2-large">Почему лучше проходить курс в группе?</h2>
+        <div class="grid-cards">
+            <div class="card">
+                <h4>Опыт и сопровождение</h4>
+                <p>Курс ведёт кризисный психолог Алексей Яровой с опытом работы более 15 лет. В группе вам помогает куратор-психолог, который хорошо знает курс и поддерживает вас на протяжении всего процесса.</p>
+            </div>
+            <div class="card">
+                <h4>Поддержка людей с похожим опытом</h4>
+                <p>Вы находитесь среди тех, кто проходит через похожее состояние.</p>
+                <ul>
+                    <li>вас понимают</li>
+                    <li>вас поддерживают</li>
+                    <li>вы не остаётесь один на один со своей проблемой</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>Разборы с Алексеем</h4>
+                <p>По субботам проходят разборы ситуаций участников (по желанию). Вы можете получить обратную связь по своей ситуации.</p>
+            </div>
+            <div class="card">
+                <h4>Мотивация и движение вперёд</h4>
+                <p>Каждую неделю участники пишут отчёты. Это помогает: видеть прогресс, не сливаться, доводить процесс до результата.</p>
+            </div>
+            <div class="card">
+                <h4>Практики ненасильственного общения</h4>
+                <p>Отдельные занятия, которые помогают выстраивать границы, общаться спокойно и не доводить до конфликтов.</p>
+            </div>
+            <div class="card">
+                <h4>Тарифы с личными сессиями</h4>
+                <p>Возможность проработать вместе с психологом сложные моменты на личных консультациях.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="content" class="section">
+        <h2 class="h2-large">СОДЕРЖАНИЕ КУРСА</h2>
+        <div class="grid-cards">
+            <div class="card">
+                <h4>1. Удаление (снижение) недоступности партнёра</h4>
+                <p><b>Что это даст:</b> Научитесь справляться с шоком, болью и чувством несправедливости. Вы удалите механизмы привязанности.</p>
+            </div>
+            <div class="card">
+                <h4>2. Снижение эмоциональной близости</h4>
+                <p><b>Что это даст:</b> Избавитесь от тех чувств, которые тянут к бывшему партнеру (скучаю, люблю, сожалею). Перестанете ждать возвращения.</p>
+            </div>
+            <div class="card">
+                <h4>3. Снижение эмоциональных потребностей</h4>
+                <p><b>Что это даст:</b> Поймёте, как стать эмоционально независимым и перестанете бояться будущего.</p>
+            </div>
+            <div class="card">
+                <h4>4. Шаблон разоблачения ожиданий</h4>
+                <p><b>Что это даст:</b> Удалите ожидания восстановления отношений и перестанете жить в иллюзиях.</p>
+            </div>
+            <div class="card">
+                <h4>5. Четыре шага бережного общения</h4>
+                <p>Упражнения для защиты границ без скандалов.<br><b>Что это даст:</b> Вы научитесь общаться без ссор и обид.</p>
+            </div>
+            <div class="card">
+                <h4>6. Дополнительные материалы:</h4>
+                <p>*Техника проработки "Депрессия"<br>*Техника боли после измены<br>*Шаблон разоблачения чувств и мыслей</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 60px; font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--navy);">
+            <b>В результате:</b><br>
+            Этот курс поможет вам пройти через расставание с минимальными потерями. Вы научитесь справляться с болью, отпускать прошлое и строить новую жизнь. Каждый вебинар и дополнительный материал — это шаг к тому, чтобы стать сильнее, увереннее и счастливее.
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="pill-blue">
+            <h2>Этот курс — не волшебная таблетка</h2>
+            <p>Это процесс, в который придётся включаться, быть честным с собой и работать со своим состоянием. Только в этом случае всё работает.</p>
+            <p><b>Разве эти усилия не стоят спокойной, свободной, нормальной жизни?</b></p>
+        </div>
+    </section>
+
+    <section id="faq" class="section">
+        <h2 class="h2-large">Часто задаваемые вопросы</h2>
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="faq-item">
+                <div class="faq-q">1. Какой формат обучения? <span class="faq-icon"></span></div>
+                <div class="faq-a">Курс проходит на двух площадках: в телеграм и во ВКонтакте, в закрытых группах. По субботам проводятся вебинары. Если вы по каким-то причинам не можете присутствовать на прямом эфире, то у вас есть возможность послушать запись в любое удобное для вас время. Дополнительно выкладываются: видео, аудио, текстовые материалы.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">2. Какая поддержка предоставляется? <span class="faq-icon"></span></div>
+                <div class="faq-a">В группе есть чат, где работает куратор-психолог. Она хорошо знает курс и у нее большой опыт работы с предыдущими потоками. Куратор отвечает на ваши вопросы в течение недели. Если вопрос сложный, тогда его передают Алексею и он отвечает на него на вебинаре или в чате.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">3. Есть ли возможность задать вопросы автору? <span class="faq-icon"></span></div>
+                <div class="faq-a">Да, вы можете задавать вопросы куратору в чате и Алексею на вебинарах. Также у нас предусмотрены пакеты с личными сессиями с психологом. Вы можете заказать сессию с куратором по специальной цене, она действует только в рамках курса.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">4. Сколько времени нужно уделять работе с курсом? <span class="faq-icon"></span></div>
+                <div class="faq-a">Для получения хорошего результата нужно постараться выделять время для занятий каждый день или отвести на это 2-3 часа в выходные. На курсе минимум теории и много практики. Поэтому проработки нужно обязательно делать. Все участники идут в своем темпе. Тут важна не скорость, а качество. Если вы не успеете все пройти в отведенное время, доступ к материалам у вас остается еще на полгода.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">5. Есть ли отзывы или рекомендации? <span class="faq-icon"></span></div>
+                <div class="faq-a">Есть. Вы можете посмотреть их в нашем сообществе в ВКонтакте в разделе “Отзывы” или на канале Алексея Ярового в телеграм.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tariffs" class="section">
+        <h2 class="h2-large">Выберите подходящий тариф</h2>
+        <div class="grid-cards">
+            <div class="tariff-card">
+                <h3>Самостоятельный</h3>
+                <p class="tariff-desc">Для тех, кто готов взять ответственность на себя</p>
+                <ul class="tariff-list">
+                    <li>Продолжительность курса 1,5 месяца</li>
+                    <li>Вебинары</li>
+                    <li>Чат</li>
+                    <li>Возможность задавать вопросы куратору</li>
+                </ul>
+                <div class="tariff-price">3500 руб.</div>
+            </div>
+            <div class="tariff-card" style="border: 2px solid var(--accent-gold);">
+                <h3>Продвинутый № 1</h3>
+                <p class="tariff-desc">Для тех, кто хочет ускориться</p>
+                <ul class="tariff-list">
+                    <li>Продолжительность курса 1,5 месяца</li>
+                    <li>Вебинары</li>
+                    <li>Чат</li>
+                    <li>Возможность задавать вопросы куратору</li>
+                    <li style="color:var(--bright-red)">Одна 2-часовая сессия с психологом</li>
+                </ul>
+                <div class="tariff-price">6500 руб.</div>
+            </div>
+            <div class="tariff-card">
+                <h3>Продвинутый № 2</h3>
+                <p class="tariff-desc">Для тех, кто привык брать по максимуму</p>
+                <ul class="tariff-list">
+                    <li>Продолжительность курса 1,5 месяца</li>
+                    <li>Вебинары</li>
+                    <li>Чат</li>
+                    <li>Возможность задавать вопросы куратору</li>
+                    <li style="color:var(--bright-red)">Две 2-часовые сессии с психологом</li>
+                </ul>
+                <div class="tariff-price">9500 руб.</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            <a href="https://t.me/tatiana_karavai" class="red-btn" style="width: 350px;">Записаться на курс</a>
+            <a href="https://vk.com/id3529551" class="red-btn" style="width: 350px;">Задать вопрос</a>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
